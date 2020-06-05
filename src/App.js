@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello World!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Bemvindo = (props) => {
+	return(	
+		<div>
+			<h3>Bem vindo(a) { props.nome }</h3>
+			<p>Tenho { props.idade } anos!</p>
+		</div>
+	);
+}
+
+function App(){
+	return (
+		<div>	
+			<h1>Olá Mundo</h1>
+			<h2>Curso React</h2>
+			<Bemvindo nome="Izzy" idade="23"/>
+			<Bemvindo nome="Ágata" idade="20"/>
+		</div>
+	);
 }
 
 export default App;
