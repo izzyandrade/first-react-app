@@ -1,37 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Equipe = (props) => {
-	return (
-		<div>
-			<Sobre 
-				nome={props.nome}
-				cargo={props.cargo}
-				idade={props.idade}
-			/>
-		</div>
-	);
-}
+class App extends Component {
 
-const Sobre = (props) => {
-	return (
-		<div>
-			<br/>
-			<h2>Olá sou o {props.nome}</h2>
-			<h3>Eu atualmente sou {props.cargo} na empresa</h3>
-			<p>E eu tenho {props.idade} anos!</p>
-			<br/>
-		</div>	
-	);
-}
+	constructor(props){
+		super(props);
+		this.state = {
+			nome: "Izzy",
+			contador: 0
+		};
 
-function App(){
-	return (
-		<div>	
-			<h1>Conheça nossa equipe!</h1>
-			<Equipe nome="Israel Andrade" cargo="CEO" idade="23"/>
-			<Equipe nome="Victor Hugo" cargo="CTO" idade="22"/>
-		</div>
-	);
+		this.aumentar = this.aumentar.bind(this);
+		this.subtrair = this.subtrair.bind(this);
+	}
+
+	aumentar(){
+		let state = this.state;
+		state.contador += 1;
+		this.setState(state)
+	}
+
+	subtrair(){
+		let state = this.state;
+		state.contador -= 1;
+		this.setState(state);
+	}
+
+	render(){
+		return(
+			<div>
+				<h1>Contador</h1>
+				<h3>
+					<button onClick={this.subtrair}>-</button>
+						{this.state.contador}
+					<button onClick={this.aumentar}>+</button>
+				</h3>
+			</div>
+		);
+	}
 }
 
 export default App;
