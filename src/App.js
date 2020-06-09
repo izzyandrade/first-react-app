@@ -1,56 +1,51 @@
 import React, { Component } from 'react';
+import './estilo.css';
 
 class App extends Component {
 
 	constructor(props){
 		super(props);
 		this.state = {
-			form: {
-				nome: '',
-				email: '',
-				senha: '',
-				sexo: ''
-			}
+			textoFrase: '',
 		};
-
-		this.dadosForm = this.dadosForm.bind(this);
-		this.cadastrar = this.cadastrar.bind(this);
+		this.frases = [
+			'A vida trará coisas boas se tiveres paciência.',
+			'Demonstre amor e alegria em todas as oportunidades e verás que a paz nasce dentro de você.',
+			'Não compense na ira o que lhe falta na razão.',
+			'Defeitos e virtudes são apenas dois lados da mesma moeda.',
+			'A maior de todas as torres começa no solo.',
+			'Não há que ser forte. Há que ser flexível.',
+			'Gente todo dia arruma os cabelos, por que não o coração?',
+			'Há três coisas que jamais voltam; a flecha lançada, a palavra dita e a oportunidade perdida.',
+			'A juventude não é uma época da vida, é um estado de espírito.',
+			'Podemos escolher o que semear, mas somos obrigados a colher o que plantamos.'
+		];
+		this.quebraBiscoito = this.quebraBiscoito.bind(this);
 	}
 
-	cadastrar(e){
-		const {nome, email, senha, sexo} = this.state.form;
-		alert(`Nome: ${nome} \nEmail: ${email}, \nSenha: ${senha}, \nSexo: ${sexo}`);
-		e.preventDefault();
-	}
-
-	dadosForm(e){
-		let form = this.state.form;
-		form[e.target.name] = e.target.value;
-		this.setState({form: form});
+	quebraBiscoito(){
+		let state = this.state;
+		let numeroAleatorio = Math.floor(Math.random() * this.frases.length);
+		state.textoFrase = '"' + this.frases[numeroAleatorio] + '"';
+		this.setState(state);
 	}
 
 	render(){
 		return(
+			<div className="container">
+				<img src={require('./assets/biscoito.png')} alt="" className="img"/>
+				<Botao nome="Abrir biscoito" acaoBtn={this.quebraBiscoito}/>
+				<h3 className="textoFrase">{this.state.textoFrase}</h3>
+			</div>
+		);
+	}
+}
+
+class Botao extends Component {
+	render(){
+		return(
 			<div>
-				<h1>Novo Usuário</h1>
-				<form onSubmit={this.cadastrar}>
-					<label>Nome: </label>
-					<input name="nome" type="text" value={this.state.form.nome} onChange={this.dadosForm}/>
-					<br/>
-					<label>Email: </label>
-					<input name="email" type="email" value={this.state.form.email} onChange={this.dadosForm} />
-					<br/>
-					<label>Senha: </label>
-					<input name="senha" type="password" value={this.state.form.senha} onChange={this.dadosForm} />
-					<br/>
-					<label>Sexo: </label>
-					<select name="sexo" value={this.state.form.sexo} onChange={this.dadosForm}>
-						<option value="masculino">Masculino</option>
-						<option value="feminino">Feminino</option>
-					</select>
-					<br/>
-					<button type="submit">Cadastrar</button>
-				</form>
+				<button onClick={this.props.acaoBtn}>{this.props.nome}</button>
 			</div>
 		);
 	}
