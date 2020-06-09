@@ -5,35 +5,52 @@ class App extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			nome: "Izzy",
-			contador: 0
+			form: {
+				nome: '',
+				email: '',
+				senha: '',
+				sexo: ''
+			}
 		};
 
-		this.aumentar = this.aumentar.bind(this);
-		this.subtrair = this.subtrair.bind(this);
+		this.dadosForm = this.dadosForm.bind(this);
+		this.cadastrar = this.cadastrar.bind(this);
 	}
 
-	aumentar(){
-		let state = this.state;
-		state.contador += 1;
-		this.setState(state)
+	cadastrar(e){
+		const {nome, email, senha, sexo} = this.state.form;
+		alert(`Nome: ${nome} \nEmail: ${email}, \nSenha: ${senha}, \nSexo: ${sexo}`);
+		e.preventDefault();
 	}
 
-	subtrair(){
-		let state = this.state;
-		state.contador -= 1;
-		this.setState(state);
+	dadosForm(e){
+		let form = this.state.form;
+		form[e.target.name] = e.target.value;
+		this.setState({form: form});
 	}
 
 	render(){
 		return(
 			<div>
-				<h1>Contador</h1>
-				<h3>
-					<button onClick={this.subtrair}>-</button>
-						{this.state.contador}
-					<button onClick={this.aumentar}>+</button>
-				</h3>
+				<h1>Novo Usuário</h1>
+				<form onSubmit={this.cadastrar}>
+					<label>Nome: </label>
+					<input name="nome" type="text" value={this.state.form.nome} onChange={this.dadosForm}/>
+					<br/>
+					<label>Email: </label>
+					<input name="email" type="email" value={this.state.form.email} onChange={this.dadosForm} />
+					<br/>
+					<label>Senha: </label>
+					<input name="senha" type="password" value={this.state.form.senha} onChange={this.dadosForm} />
+					<br/>
+					<label>Sexo: </label>
+					<select name="sexo" value={this.state.form.sexo} onChange={this.dadosForm}>
+						<option value="masculino">Masculino</option>
+						<option value="feminino">Feminino</option>
+					</select>
+					<br/>
+					<button type="submit">Cadastrar</button>
+				</form>
 			</div>
 		);
 	}
